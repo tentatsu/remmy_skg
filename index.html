@@ -29,6 +29,8 @@
 			var liElement = document.createElement("li");
 			liElement.style.animationDelay = 1 + (i * 0.2) + "s";
 			liElement.style.background = "url(images/remmy/" + imgArray[i][0] + ") no-repeat center center / cover";
+			liElement.dataset.imgSrc = "images/remmy/" + imgArray[i][0]; // 画像パスをデータ属性に保存
+	        var aElement = document.createElement("a");
 			var aElement = document.createElement("a");
 			var spanElement = document.createElement("span");
 			spanElement.textContent = imgArray[i][1];
@@ -45,19 +47,53 @@
 		imgElement.appendChild(ulElement);
 
 		// imgElementをクリックしたらポップアップを表示する
-		imgElement.addEventListener("click", function () {
+		imgElement.addEventListener("click", function (event) {
+			var target = event.target.closest("li");
+			if (!target) return;
+
+			var imgSrc = target.dataset.imgSrc;
+
+			var overlayElement = document.createElement("div");
+			overlayElement.id = "overlay";
+			overlayElement.style.position = "fixed";
+			overlayElement.style.top = "0";
+			overlayElement.style.left = "0";
+			overlayElement.style.width = "100%";
+			overlayElement.style.height = "100%";
+			overlayElement.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+			overlayElement.style.zIndex = "9998";
+
 			var popupElement = document.createElement("div");
 			popupElement.id = "popup";
-			popupElement.style.background = "url(images/remmy/" + imgArray[0][0] + ") no-repeat center center / cover";
+			popupElement.style.background = "url(" + imgSrc + ") no-repeat center center / cover";
+			popupElement.style.position = "fixed";
+			popupElement.style.top = "50%";
+			popupElement.style.left = "50%";
+			popupElement.style.width = "20%";
+			popupElement.style.height = "50vh";
+			popupElement.style.transform = "translate(-50%, -50%)";
+			popupElement.style.zIndex = "9999";
+
 			var closeElement = document.createElement("div");
 			closeElement.id = "close";
 			closeElement.textContent = "×";
+			closeElement.style.position = "absolute";
+			closeElement.style.top = "10px";
+			closeElement.style.right = "10px";
+			closeElement.style.cursor = "pointer";
+
 			popupElement.appendChild(closeElement);
+			document.body.appendChild(overlayElement);
 			document.body.appendChild(popupElement);
 
-			// closeElementをクリックしたらポップアップを閉じる
 			closeElement.addEventListener("click", function () {
 				document.body.removeChild(popupElement);
+				document.body.removeChild(overlayElement);
+			});
+
+			overlayElement.addEventListener("click", function () {
+				document.body.removeChild(popupElement);
+				document.body.removeChild(overlayElement);
 			});
 		});
 	}); 
