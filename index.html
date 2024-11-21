@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>企業・ビジネスサイト向け 無料ホームページテンプレート tp_biz53</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="ここにサイト説明を入れます">
+<meta name="keywords" content="キーワード１,キーワード２,キーワード３,キーワード４,キーワード５">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/openclose.js"></script>
+<script src="js/fixmenu_pagetop.js"></script>
+<script src="js/img_array.js?a"></script>
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<style>
+</style>
+<![endif]-->
+<script type="module">
+	console.log(imgArray);
+	// dom読み込んだらスタート
+	document.addEventListener("DOMContentLoaded", function () {
+		// mainimgの画像を動的に構築
+		// var img = new Array("2024112101.png", "2024112102.png", "2024112103.png", "2024112104.png");
+		var imgElement = document.getElementById("mainimg");
+		var ulElement = document.createElement("ul");
+		for (var i = 0; i < imgArray.length; i++) {
+			var liElement = document.createElement("li");
+			liElement.style.animationDelay = 1 + (i * 0.2) + "s";
+			liElement.style.background = "url(images/remmy/" + imgArray[i][0] + ") no-repeat center center / cover";
+			var aElement = document.createElement("a");
+			var spanElement = document.createElement("span");
+			spanElement.textContent = imgArray[i][1];
+			aElement.appendChild(spanElement);
+			liElement.appendChild(aElement);
+			ulElement.appendChild(liElement);
+
+			// 以下のCSSをliElementに追加
+			// animation-delay: 2s;	/*2秒遅れてアニメーションをスタート*/
+			// background: url(../images/remmy/2024112101.png) no-repeat center center;			/*背景画像の読み込み（古いブラウザ用）*/
+			// background: url(../images/remmy/2024112101.png) no-repeat center center / cover;	/*背景画像の読み込み*/
+		}
+		// htmlに追加
+		imgElement.appendChild(ulElement);
+
+		// imgElementをクリックしたらポップアップを表示する
+		imgElement.addEventListener("click", function () {
+			var popupElement = document.createElement("div");
+			popupElement.id = "popup";
+			popupElement.style.background = "url(images/remmy/" + imgArray[0][0] + ") no-repeat center center / cover";
+			var closeElement = document.createElement("div");
+			closeElement.id = "close";
+			closeElement.textContent = "×";
+			popupElement.appendChild(closeElement);
+			document.body.appendChild(popupElement);
+
+			// closeElementをクリックしたらポップアップを閉じる
+			closeElement.addEventListener("click", function () {
+				document.body.removeChild(popupElement);
+			});
+		});
+	}); 
+
+</script>
+</head>
+
+<body class="home">
+
+<header>
+<h1 id="logo"><a href="index.html">REMMY`s SKG</a></h1>
+<p id="news"><span class="newicon">お知らせ</span><a href="news.html">2019/12/02…tp_biz53公開。</a></p>
+</header>
+
+<nav id="mainimg">
+<!-- <ul>
+<li id="img1"><a href="works.html"><span>Works</span></a></li>
+<li id="img2"><a href="company.html"><span>Company</span></a></li>
+<li id="img3"><a href="recruit.html"><span>Recruit</span></a></li>
+<li id="img4"><a href="contact.html"><span>Contact</span></a></li>
+<li id="img1"><a href="works.html"><span>Works</span></a></li>
+<li id="img2"><a href="company.html"><span>Company</span></a></li>
+<li id="img3"><a href="recruit.html"><span>Recruit</span></a></li>
+<li id="img4"><a href="contact.html"><span>Contact</span></a></li>
+</ul> -->
+</nav>
+
+<nav id="menubar-s">
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="news.html">News</a></li>
+<li><a href="works.html">Works</a></li>
+<li><a href="company.html">Company</a></li>
+<li><a href="recruit.html">Recruit</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</nav>
+
+<!--ページの上部に戻る「↑」ボタン-->
+<p class="nav-fix-pos-pagetop"><a href="#">↑</a></p>
+
+<!--メニュー開閉ボタン-->
+<div id="menubar_hdr" class="close"></div>
+
+<!--メニューの開閉処理条件設定　800px以下-->
+<script>
+if (OCwindowWidth() <= 800) {
+	open_close("menubar_hdr", "menubar-s");
+}
+</script>
+
+</body>
+</html>
